@@ -27,7 +27,7 @@ class OnBoardingController extends GetxController{
 
   void nextPage(){
      if(currentPageIndex.value == 2){
-       /// when you click on skip it "isFirstTime become false and next time you will not see any onboarding screens "
+
        final storage = GetStorage();
        storage.write("isFirstTime", false);
        Get.offAll(const LoginScreen());
@@ -42,6 +42,8 @@ class OnBoardingController extends GetxController{
 
 
   void skipPage(){
+
+    /// when you click on skip it "isFirstTime become false and next time you will not see any onboarding screens "
     final storage = GetStorage();
     storage.write("isFirstTime", false);
     Get.offAll(const LoginScreen());
