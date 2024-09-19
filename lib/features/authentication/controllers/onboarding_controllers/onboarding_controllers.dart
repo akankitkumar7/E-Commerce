@@ -36,6 +36,7 @@ class OnBoardingController extends GetxController{
      }
   }
 
+
   /// update current index and jump to last page
 
 
