@@ -10,15 +10,14 @@ class SignupController extends GetxController {
 
   /// variables
   final hidePassword = true.obs; // observable for hiding/showing password
-  final privacyPolicy = true.obs; // observable for privacy Policy acceptance
+  final privacyPolicy = false.obs; // observable for privacy Policy acceptance
   final email = TextEditingController();
   final lastName = TextEditingController();
   final userName = TextEditingController();
   final password = TextEditingController();
   final firstName = TextEditingController();
   final phoneNumber = TextEditingController();
-  GlobalKey<FormState> signupFormKey =
-      GlobalKey<FormState>(); // FORM KEY FOR VALIDATION
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>(); // FORM KEY FOR VALIDATION
 
   /// SIGNUP
 
