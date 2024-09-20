@@ -39,12 +39,12 @@ class SignupController extends GetxController {
       if (signupFormKey.currentState!.validate()) {
         return;
       }
+
       //privacy policy check
       if (!privacyPolicy.value) {
         TLoaders.warningSnackBar(
             title: "Accept Privacy Policy",
-            message:
-                "In order to create your account, you must have to read and accept the privacy policy and & Term of use."
+            message: "In order to create your account, you must have to read and accept the privacy policy and & Term of use.",
         );
         return;
       }
