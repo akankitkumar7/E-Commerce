@@ -1,7 +1,15 @@
 class TValidators{
+
+  /// empty text validators
+  static String? validateEmptyText(String? fieldName, String? value){
+    if(value == null || value.isEmpty){
+      return '$fieldName is required';
+    }
+    return null;
+  }
   static String? validateEmail(String? value){
     if(value == null || value.isEmpty){
-      return 'Email is requires';
+      return 'Email is required';
     }
 
     // regular expression for email validation
@@ -17,7 +25,7 @@ class TValidators{
       return 'Password is required';
     }
 
-    if(value.length<8){
+    if(value.length<6){
       return'Password must be at least 6 characters long';
     }
     if(!value.contains(RegExp(r'[A-Z]'))){
@@ -37,12 +45,12 @@ class TValidators{
 
   // validate phone number
 
-
 static String? validatePhoneNumber(String? value) {
   if (value == null || value.isEmpty) {
     return 'Phone Number is Required';
   }
   final phoneRegExp = RegExp(r'^\d{10}$');
+
   if (!phoneRegExp.hasMatch(value)) {
     return 'Invalid Phone Number';
   }

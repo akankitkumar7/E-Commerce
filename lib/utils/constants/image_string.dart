@@ -77,6 +77,9 @@ class TImages{
   static const String subcategories1 = "assets/images/sub_categories/jersy.png";
   static const String subcategories2 = "assets/images/sub_categories/sports.jpg";
 
+  // animation images
+  static const String animation = "assets/animation/animation.gif";
+
 
 
 }
