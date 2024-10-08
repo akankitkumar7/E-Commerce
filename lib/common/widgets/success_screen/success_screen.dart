@@ -58,7 +58,6 @@ class SuccessScreen extends StatelessWidget {
                     child: const Text(TTexts.tContinue),
                   )
               ),
-
             ],
           ),
         ),
