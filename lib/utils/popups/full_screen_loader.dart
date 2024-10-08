@@ -16,18 +16,17 @@ class TFullScreenLoader{
               color: THelperFunctions.isDarkMode(Get.context!) ? TColors.dark : TColors.white,
               width: double.infinity,
               height: double.infinity,
-              child: Column(
-                children: [
-                  const SizedBox(height: 250),
-                  TAnimationLoaderWidget(text: text,animation: animation),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TAnimationLoaderWidget(text: text,animation: animation),
+                  ],
+                ),
               ),
             ),
         ),
     );
   }
-
-
   static stopLoading(){
     Navigator.of(Get.overlayContext!).pop(); // close the dialog using the navigator
   }

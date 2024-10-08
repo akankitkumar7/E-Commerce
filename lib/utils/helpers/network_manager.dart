@@ -27,7 +27,7 @@ class NetworkManager extends GetxController{
       TLoaders.warningSnackBar(title : "No Internet Connection");
     }
   }
-  
+
   /// check the internet connection status
  /// returns 'true' if connected 'false' otherwise
  Future<bool> isConnected() async{

@@ -1,4 +1,4 @@
-import 'package:e_com/features/authentication/controllers/signup_controller/singup_controller.dart';
+import 'package:e_com/features/authentication/controllers/signup_controller/signup_controller.dart';
 import 'package:e_com/features/authentication/screens/signupWidgets/terms_conditions.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/constants/text_string.dart';

@@ -1,3 +1,4 @@
+import 'package:e_com/features/authentication/controllers/signup_controller/signup_controller.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/constants/text_string.dart';
@@ -5,7 +6,6 @@ import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import '../../controllers/signup_controller/singup_controller.dart';
 
 class TermsAndConditions extends StatelessWidget {
   const TermsAndConditions({
@@ -24,8 +24,9 @@ class TermsAndConditions extends StatelessWidget {
             child: Obx(
                     () => Checkbox(
                 value: controller.privacyPolicy.value,
-                onChanged: (value) => controller.privacyPolicy.value =
-                    !controller.privacyPolicy.value))),
+                onChanged: (value) => controller.privacyPolicy.value = !controller.privacyPolicy.value),
+            ),
+        ),
         const SizedBox(
           width: TSizes.spaceBtwItems,
         ),
