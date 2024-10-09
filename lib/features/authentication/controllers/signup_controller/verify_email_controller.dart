@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:e_com/common/widgets/loaders/loaders.dart';
 import 'package:e_com/common/widgets/success_screen/success_screen.dart';
 import 'package:e_com/data/repositories/repository_authentication/authentication_repository.dart';
