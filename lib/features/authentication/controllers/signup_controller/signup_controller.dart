@@ -32,9 +32,8 @@ class SignupController extends GetxController {
 
       // check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        return;
-      }
+      if (!isConnected) return;
+
 
       // form validation
 
@@ -80,8 +79,6 @@ class SignupController extends GetxController {
 
       // remove loader
       TFullScreenLoader.stopLoading();
-
-
       // show some generic error to the user
       TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
     }

@@ -1,4 +1,3 @@
-import 'package:e_com/data/repositories/repository_authentication/authentication_repository.dart';
 import 'package:e_com/features/authentication/controllers/signup_controller/verify_email_controller.dart';
 import 'package:e_com/utils/constants/image_string.dart';
 import 'package:e_com/utils/constants/sizes.dart';
