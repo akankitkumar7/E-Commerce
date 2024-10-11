@@ -17,14 +17,14 @@ class NetworkManager extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    //_connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    // _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
   
   /// update the connection status based on changes in connectivity and show a relevant popup for no internet connection
   Future<void> _updateConnectionStatus(ConnectivityResult result) async{
     _connectionStatus.value = result;
     if(_connectionStatus.value == ConnectivityResult.none){
-      TLoaders.warningSnackBar(title : "No Internet Connection");
+      TLoaders.customToast(message : "No Internet Connection");
     }
   }
 
@@ -38,7 +38,7 @@ class NetworkManager extends GetxController{
       }else{
         return true;
       }
-    } on PlatformException catch(_){
+    } on PlatformException catch(e){
       return false;
     }
  }

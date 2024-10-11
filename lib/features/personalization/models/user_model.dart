@@ -47,7 +47,7 @@ class UserModel {
 
 
     String camelCaseUsername = "$firstName$lastName"; // combine first and last name
-    String usernameWithPrefix = "cwt_$camelCaseUsername"; //add "cwt_" prefix
+    String usernameWithPrefix = "ak_$camelCaseUsername"; //add "ak_" prefix
     return usernameWithPrefix;
   }
 
@@ -58,8 +58,8 @@ class UserModel {
   /// convert model to JSON structure for storing user model
   Map <String, dynamic> toJson(){
     return {
-      "firsName" : firstName,
-      "lastName" : lastName,
+      "FirstName" : firstName,
+      "LastName" : lastName,
       "Username" : username,
       "Email" : email,
       "PhoneNumber" : phoneNumber,
@@ -72,8 +72,8 @@ class UserModel {
     if (document.data() != null) {
       final data = document.data()!;
       return UserModel(id: document.id,
-        firstName: data["firstName"] ?? " ",
-        lastName: data["lastName"] ?? " ",
+        firstName: data["FirstName"] ?? " ",
+        lastName: data["LastName"] ?? " ",
         username: data["username"] ?? " ",
         email: data["email"] ?? " ",
         phoneNumber: data["phoneNumber"] ?? " ",

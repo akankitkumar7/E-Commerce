@@ -12,6 +12,8 @@ class TFirebaseException implements Exception{
     switch(code){
       case 'unknown':
         return "An unknown error has occurred. Please try again.";
-    } return " ";
+      default:
+        return"An unexpected error occurred. Please try again";
+    }
   }
 }
