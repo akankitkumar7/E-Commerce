@@ -78,7 +78,7 @@ class TImages{
   static const String subcategories2 = "assets/images/sub_categories/sports.jpg";
 
   // animation images
-  static const String animation = "assets/animation/animation.gif";
+  static const String animation = "assets/animation/Animation - 1728627155419.gif";
 
 
 

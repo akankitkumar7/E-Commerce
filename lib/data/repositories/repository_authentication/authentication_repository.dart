@@ -72,8 +72,7 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
     try {
-      return await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      return await _auth.createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
@@ -124,11 +123,7 @@ class AuthenticationRepository extends GetxController {
 
 
       // once signed in, return the credentials
-
       return await _auth.signInWithCredential(credentials);
-
-
-
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
