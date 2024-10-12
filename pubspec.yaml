@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^5.3.0
   cloud_firestore: ^5.4.2
   google_sign_in: ^6.2.1
+  shimmer: ^3.0.0
 
 #Product Specific
 

@@ -32,12 +32,19 @@ class SignupController extends GetxController {
 
       // check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) return;
+      if (!isConnected){
+        TFullScreenLoader.stopLoading();
+        return;
+      }
 
 
       // form validation
 
-      if (!signupFormKey.currentState!.validate()) return;
+      if (!signupFormKey.currentState!.validate()){
+        // remove loader
+        TFullScreenLoader.stopLoading();
+        return;
+      }
 
       //privacy policy check
       if (!privacyPolicy.value){
@@ -48,7 +55,7 @@ class SignupController extends GetxController {
         return;
       }
 
-      // register user in the firebase authentication and save user data in the firebase
+      // Register user in the firebase authentication and save user data in the firebase
       final userCredential = await AuthenticationRepository.instance.registerWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       //save authenticated user data in the firebase firestore

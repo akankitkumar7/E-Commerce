@@ -1,3 +1,5 @@
+import 'package:e_com/features/authentication/controllers/forgot_password/forget_password_controller.dart';
+import 'package:e_com/features/authentication/screens/login/login.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/constants/text_string.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
@@ -6,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/constants/image_string.dart';
-class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +33,10 @@ class ResetPassword extends StatelessWidget {
                 ),
                 width: THelperFunctions.screenWidth() * 0.6,
               ),
-              const SizedBox(
-                height: TSizes.spaceBtwSections,
-              ),
+              /// email title and subtitle
+              Text(email,style: Theme.of(context).textTheme.bodyMedium,textAlign: TextAlign.center,),
+              const SizedBox(height: TSizes.spaceBtwSections,),
 
-              ///title and subtitle
               Text(
                 TTexts.changeYourPasswordTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -53,7 +56,7 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: () => Get.offAll(() => const LoginScreen()),
                     child: const Text(TTexts.done),
                   ),
               ),
@@ -62,7 +65,7 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: () => ForgetPasswordController.instance.resendPasswordResetEmail(email),
                   child: Text(TTexts.resendEmail.capitalize!),
                 ),
               ),

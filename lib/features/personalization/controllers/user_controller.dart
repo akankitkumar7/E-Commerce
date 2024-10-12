@@ -1,15 +1,46 @@
 import 'package:e_com/common/widgets/loaders/loaders.dart';
+import 'package:e_com/data/repositories/repository_authentication/authentication_repository.dart';
 import 'package:e_com/data/repositories/user/user_repository.dart';
+import 'package:e_com/features/authentication/screens/login/login.dart';
 import 'package:e_com/features/personalization/models/user_model.dart';
+import 'package:e_com/features/personalization/screens/profile/widgets/reauthenticate_user_login_form.dart';
+import 'package:e_com/utils/constants/image_string.dart';
+import 'package:e_com/utils/constants/sizes.dart';
+import 'package:e_com/utils/helpers/network_manager.dart';
+import 'package:e_com/utils/popups/full_screen_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart%20';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  static UserCredential get instance => Get.find();
+  static UserController get instance => Get.find();
 
+  final profileLoading = false.obs;
+  Rx<UserModel> user = UserModel.empty().obs;
+
+  final hidePassword = false.obs;
+  final verifyEmail = TextEditingController();
+  final verifyPassword = TextEditingController();
   final userRepository = Get.put(UserRepository());
-  /// save user record from any registration provider
+  GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserRecord();
+  }
+
+  /// fetch user record
+  Future<void> fetchUserRecord() async{
+    try{
+      final user = await userRepository.fetchUserDetails();
+      this.user(user);
+    } catch (e){
+      user(UserModel.empty());
+    }
+  }
+
+  /// save user record from any registration provider
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
       if (userCredentials != null) {
@@ -32,7 +63,6 @@ class UserController extends GetxController {
         );
 
         // save user data
-
         await userRepository.saveUserRecord(user);
       }
     } catch (e) {
@@ -42,4 +72,72 @@ class UserController extends GetxController {
       );
     }
   }
+  /// delete account warning
+  void deleteAccountWarningPopup(){
+    Get.defaultDialog(
+      contentPadding: const EdgeInsets.all(TSizes.md),
+      title: 'Delete Account',
+      middleText: 'Are you sure that you want to delete your account? Deleting your account will is reversible and all of your data will be removed permanently ',
+      confirm: ElevatedButton(onPressed: () async => deleteUserAccount(),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red,side: const BorderSide(color: Colors.red)),
+          child: const Padding(padding: EdgeInsets.symmetric(horizontal: TSizes.lg),child: Text("Delete"),),
+          ),
+      cancel: OutlinedButton(onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+          child: const Text('Cancel'),),
+    );
+  }
+
+
+  /// delete user account
+ void deleteUserAccount() async{
+    try{
+      TFullScreenLoader.openLoadingDialog('Processing', TImages.animation);
+      /// first re authenticate user
+      final auth = AuthenticationRepository.instance;
+      final provider = auth.authUser!.providerData.map((e) => e.providerId).first;
+      if(provider.isNotEmpty){
+        // re verify your email
+        if(provider == 'google.com'){
+          await auth.signInWithGoogle();
+          await auth.deleteAccount();
+          TFullScreenLoader.stopLoading();
+          Get.offAll(() => const LoginScreen());
+        } else if(provider == 'password'){
+          TFullScreenLoader.stopLoading();
+          Get.to(()=> const ReAuthLoginForm());
+        }
+      }
+    } catch(e){
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: 'Oh Snap',message: e.toString());
+    }
+ }
+
+
+ /// re authenticate user before deleting
+ Future <void> reAuthenticateEmailAndPasswordUser() async{
+    try{
+      TFullScreenLoader.openLoadingDialog('Processing', TImages.animation);
+
+      // check for internet
+      final isConnected = await NetworkManager.instance.isConnected();
+      if(!isConnected){
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      if(!reAuthFormKey.currentState!.validate()){
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+      await AuthenticationRepository.instance.reAuthenticateWithEmailAndPassword(verifyEmail.text.trim(),verifyPassword.text.trim());
+      await AuthenticationRepository.instance.deleteAccount();
+      TFullScreenLoader.stopLoading();
+      Get.offAll(() => const LoginScreen());
+
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.successSnackBar(title: 'Oh Snap',message: e.toString());
+    }
+ }
 }

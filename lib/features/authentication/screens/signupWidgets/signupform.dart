@@ -25,7 +25,7 @@ class SignUpForm extends StatelessWidget {
                   controller: controller.firstName,
                   expands: false,
                   decoration: const InputDecoration(
-                    labelText: TTexts.firsName,
+                    labelText: TTexts.firstName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),
