@@ -89,6 +89,10 @@ class LoginController extends GetxController {
     // remove the loader
     TFullScreenLoader.stopLoading();
 
+    //redirect the screen
+    AuthenticationRepository.instance.screenRedirect();
+
+
 
   }catch(e){
       // remove loader

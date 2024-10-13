@@ -4,8 +4,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:e_com/utils/constants/colors.dart';
 
 class TShimmerEffect extends StatelessWidget {
-  const TShimmerEffect(
-      {super.key,
+  const TShimmerEffect({
+      super.key,
       required this.width,
       required this.height,
       this.radius = 15,

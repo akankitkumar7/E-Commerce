@@ -40,7 +40,6 @@ class UpdateNameController extends GetxController{
       TFullScreenLoader.openLoadingDialog('We are updating your information ', TImages.animation);
 
       // check internet connectivity
-
       final isConnected = await NetworkManager.instance.isConnected();
       if(!isConnected){
         TFullScreenLoader.stopLoading();
