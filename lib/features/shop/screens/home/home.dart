@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/text_string.dart';
-import 'package:e_com/utils/constants/image_string.dart';
 import 'package:e_com/common/widgets/layout/grid_layout.dart';
 import 'package:e_com/common/widgets/texts/section_heading.dart';
 import 'package:e_com/features/shop/screens/home/widgets/home_appbar.dart';
@@ -70,15 +69,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 /// home banner images slider
-                const BannerSlider(
-                  banners: [
-                    TImages.homeBanner4,
-                    TImages.homeBanner1,
-                    TImages.homeBanner3,
-                    TImages.homeBanner2,
-                    TImages.homeBanner5,
-                  ],
-                ),
+                const BannerSlider(),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),
