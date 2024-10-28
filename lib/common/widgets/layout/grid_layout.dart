@@ -21,10 +21,10 @@ class HomeGridLayout extends StatelessWidget {
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: TSizes.gridViewSpacing,
-        crossAxisSpacing: TSizes.gridViewSpacing,
-        mainAxisExtent: mainAxisExtent,
+      crossAxisCount: 2,
+      mainAxisSpacing: TSizes.gridViewSpacing,
+      crossAxisSpacing: TSizes.gridViewSpacing,
+      mainAxisExtent: mainAxisExtent,
       ),
       itemBuilder: itemBuilder,
     );

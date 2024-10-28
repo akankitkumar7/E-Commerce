@@ -18,7 +18,7 @@ class BannerSlider extends StatelessWidget {
       () {
         //loader
         if(controller.isLoading.value) return const TShimmerEffect(width: double.infinity, height: 190);
-        // no data found
+        // if no data found
         if(controller.banners.isEmpty){
           return const Center(child: Text('No Data found'),);
         } else{

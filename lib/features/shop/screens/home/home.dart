@@ -1,4 +1,6 @@
+import 'package:e_com/common/widgets/loaders/vertical_product_shimmer.dart';
 import 'package:e_com/common/widgets/product/product_cards/product_card_vertical.dart';
+import 'package:e_com/features/shop/controllers/product_controller.dart';
 import 'package:e_com/features/shop/screens/all_products/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:e_com/utils/constants/sizes.dart';
@@ -18,31 +20,32 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductController());
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: [
-          const PrimaryHeaderContainer(
-            child: Column(
-              children: [
-                /// app bar
-                HomeAppBar(),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const PrimaryHeaderContainer(
+              child: Column(
+                children: [
+                  /// app bar
+                  HomeAppBar(),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
 
-                ///search bar
-                SearchContainer(
-                  text: TTexts.searchText,
-                ),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
+                  ///search bar
+                  SearchContainer(
+                    text: TTexts.searchText,
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
 
-                /// headings  (popular categories)
-                Padding(
-                  padding: EdgeInsets.only(left: TSizes.defaultSpace),
-                  child: Column(
+                  /// headings  (popular categories)
+                  Padding(
+                    padding: EdgeInsets.only(left: TSizes.defaultSpace),
+                    child: Column(
                       children: [
                         SectionHeading(
                           showActionButton: false,
@@ -56,43 +59,56 @@ class HomeScreen extends StatelessWidget {
                         /// categories (circular items)
                         HomeCategories()
                       ],
-                      ),
-                ),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                )
-              ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: Column(
-              children: [
-                /// home banner images slider
-                const BannerSlider(),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
+            Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child: Column(
+                children: [
+                  /// home banner images slider
+                  const BannerSlider(),
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
 
-                /// heading
-                SectionHeading(
-                  title: "Popular Products",
-                  onPressed: () => Get.to(() => const AllProducts()),
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
+                  /// heading
+                  SectionHeading(
+                    title: "Popular Products",
+                    onPressed: () => Get.to(() => const AllProducts()),
+                  ),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
 
-                /// popular products
-                HomeGridLayout(
-                  itemBuilder: (_, index) => const ProductCardVertical(),
-                  itemCount: 4,
-                ),
-              ],
+                  /// popular products
+                  Obx(() {
+                    if (controller.isLoading.value) {
+                      return const TVerticalProductShimmer();
+                    }
+                    if (controller.featuredProducts.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No Data Found',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      );
+                    }
+                    return HomeGridLayout(
+                        itemCount: controller.featuredProducts.length,
+                        itemBuilder: (_, index) => ProductCardVertical(product: controller.featuredProducts[index]));
+                  }),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:e_com/common/widgets/texts/section_heading.dart';
+import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/features/shop/screens/product_details/widgets/product_add_to_cart.dart';
 import 'package:e_com/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:e_com/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
@@ -12,11 +13,11 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetail extends StatelessWidget {
-  const ProductDetail({super.key});
+  const ProductDetail({super.key, required this.product});
 
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
-    //final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: const BottomAddToCart(),
       body: SingleChildScrollView(
