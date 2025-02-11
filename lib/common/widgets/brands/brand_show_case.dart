@@ -5,10 +5,7 @@ import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 class BrandShowcase extends StatelessWidget {
-  const BrandShowcase({
-    super.key,
-    required this.images,
-  });
+  const BrandShowcase({super.key, required this.images});
 
   final List<String> images;
 
@@ -31,8 +28,7 @@ class BrandShowcase extends StatelessWidget {
           /// brand top 3 product images
           Row(
               children: images
-                  .map((image) => brandTopProductImageWidget(image, context))
-                  .toList())
+                  .map((image) => brandTopProductImageWidget(image, context)).toList())
         ],
       ),
     );

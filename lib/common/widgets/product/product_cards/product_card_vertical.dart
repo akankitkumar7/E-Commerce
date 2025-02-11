@@ -5,7 +5,7 @@ import 'package:e_com/common/widgets/images/rounder_home_banner.dart';
 import 'package:e_com/common/widgets/product/product_price.dart';
 import 'package:e_com/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
-import 'package:e_com/features/shop/controllers/product_controller.dart';
+import 'package:e_com/features/shop/controllers/product/product_controller.dart';
 import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/features/shop/screens/product_details/product_details.dart';
 import 'package:e_com/utils/constants/colors.dart';
@@ -23,7 +23,9 @@ class ProductCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final controller = ProductController.instance;
+
     final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
@@ -40,12 +42,13 @@ class ProductCardVertical extends StatelessWidget {
             /// thumbnail wishlist button, discount tag
             RoundedContainer(
               height: 180,
+              width: 180,
               padding: const EdgeInsets.all(TSizes.sm),
               backgroundColor: dark ? TColors.dark : TColors.light,
               child: Stack(
                 children: [
                   /// thumbnail image
-                   RoundedImage(imageUrl: product.thumbnail,applyImageRadius: true,isNetworkImage: true,),
+                   Center(child: RoundedImage(imageUrl: product.thumbnail,applyImageRadius: true,isNetworkImage: true,)),
 
                   /// sale tag
                   Positioned(
@@ -90,8 +93,6 @@ class ProductCardVertical extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-
                 /// price
                 Flexible(
                   child: Column(

@@ -50,7 +50,7 @@ class ProductVariationModel {
       salePrice:double.parse((data['Price'] ?? 0.0).toString()),
       sku: data['SKU'] ?? '',
       stock: data['Stock'] ?? 0,
-      attributeValues: Map<String, dynamic>.from(data['AttributeValues'])
+      attributeValues: Map<String, String>.from(data['AttributeValues'])
     );
   }
 }

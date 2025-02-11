@@ -5,10 +5,7 @@ class ProductAttributeModel{
 
   /// json Format
   toJson(){
-    return{
-      'Name':name,
-      'Values':values
-    };
+    return{'Name':name, 'Values':values};
   }
 
   /// map Json oriented document snapshot from firebase to model

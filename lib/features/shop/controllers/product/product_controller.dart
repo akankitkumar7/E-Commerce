@@ -48,8 +48,8 @@ class ProductController extends GetxController{
     if(product.productType == ProductType.single.toString()){
       return (product.salePrice > 0 ? product.salePrice : product.price).toString();
     } else{
-      //calculate the smallest and largest prices among variations\
 
+      //calculate the smallest and largest prices among variations
       for(var variation in product.productVariations!){
         // determine the sale price to consider(sale price if available, otherwise regular price)
         double priceToConsider = variation.salePrice > 0.0 ? variation.salePrice : variation.price;
