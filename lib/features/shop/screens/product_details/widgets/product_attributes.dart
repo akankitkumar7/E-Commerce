@@ -3,28 +3,36 @@ import 'package:e_com/common/widgets/custom_shapes/containers/rounded_containers
 import 'package:e_com/common/widgets/product/product_price.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
 import 'package:e_com/common/widgets/texts/section_heading.dart';
+import 'package:e_com/features/shop/controllers/product/variation_controller.dart';
+import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductAttributes extends StatelessWidget {
-  const ProductAttributes({super.key});
+  const ProductAttributes({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VariationController());
     final dark = THelperFunctions.isDarkMode(context);
-    return Column(
-      children: [
+    return Obx(
+        () => Column(
+          children: [
         /// Selected Attributes Pricing and Description
+        /// display variation price and stock when some variation is selected
+        if(controller.selectedVariation.value.id.isNotEmpty)
         RoundedContainer(
           padding: const EdgeInsets.all(TSizes.md),
           backgroundColor: dark ? TColors.darkerGrey : TColors.grey,
           child: Column(children: [
             Row(
               children: [
-                const SectionHeading(
-                    title: 'Variation', showActionButton: false),
+                const SectionHeading(title: 'Variation', showActionButton: false),
                 const SizedBox(
                   width: TSizes.spaceBtwItems,
                 ),
@@ -40,8 +48,9 @@ class ProductAttributes extends StatelessWidget {
                       ),
 
                       /// actual price
+                      if(controller.selectedVariation.value.salePrice > 0)
                       Text(
-                        '\$25',
+                        '\$${controller.selectedVariation.value.price}',
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
@@ -52,7 +61,7 @@ class ProductAttributes extends StatelessWidget {
                       ),
 
                       /// sale price
-                      const ProductPriceText(price: '20'),
+                      ProductPriceText(price:controller.getVariationPrice()),
                       const SizedBox(
                         width: TSizes.spaceBtwItems,
                       ),
@@ -62,25 +71,16 @@ class ProductAttributes extends StatelessWidget {
                   /// stock
                   Row(
                     children: [
-                      const ProductTitleText(
-                        title: 'Stock',
-                        smallSize: true,
-                      ),
-                      const SizedBox(
-                        width: TSizes.spaceBtwItems / 3,
-                      ),
-                      Text(
-                        "In Stock",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      )
+                      const ProductTitleText(title: 'Stock', smallSize: true,),
+                      const SizedBox(width: TSizes.spaceBtwItems / 3),
+                      Text(controller.variationStockStatus.value, style: Theme.of(context).textTheme.labelMedium,)
                     ],
                   ),
                 ]),
               ],
             ),
-            const ProductTitleText(
-              title:
-                  "This is the Description of the product and it can go up to maximum 4 lines ",
+            ProductTitleText(
+              title: controller.selectedVariation.value.description ?? '' ,
               maxLines: 4,
               smallSize: true,
             )
@@ -93,46 +93,35 @@ class ProductAttributes extends StatelessWidget {
         /// attributes
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SectionHeading(title: 'Choose the Color',showActionButton: false,),
-            const SizedBox(
-              height: TSizes.spaceBtwItems/2,
-            ),
-            Wrap(
-              spacing: 7,
-              children: [
-                TChoiceChips(text: 'Green',selected: true, onSelected: (value){},),
-                TChoiceChips(text: 'Blue',selected: false, onSelected: (value){},),
-                TChoiceChips(text: 'Yellow',selected: false, onSelected: (value){},),
-                TChoiceChips(text: 'Pink',selected: false, onSelected: (value){},),
-                TChoiceChips(text: 'Indigo',selected: false, onSelected: (value){},),
-              ],
-            ),
-            const SizedBox(
-              height: TSizes.spaceBtwItems,
-            ),
-          ],
+          children: product.productAttributes!
+              .map((attribute) => Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionHeading(
+                        title: attribute.name ?? " ",
+                        showActionButton: false,
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwItems / 2),
+                      Obx(
+                        () => Wrap(
+                          spacing: 8,
+                          children: attribute.values!.map((attributeValue) {
+
+                            final isSelected = controller.selectedAttributes[attribute.name] == attributeValue;
+                            final available = controller.getAttributesAvailabilityInVariation(product.productVariations!, attribute.name!)
+                            .contains(attributeValue);
+                             return TChoiceChips(text: attributeValue, selected: isSelected, onSelected: available ? (selected){
+                               if(selected && available){
+                                 controller.onAttributeSelected(product, attribute.name ?? '', attributeValue);
+                               }
+                             } : null);
+                          }).toList()
+                        ),
+                      ),
+                    ],
+                  ))
+              .toList(),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SectionHeading(title: 'Select the Size',showActionButton: false,),
-            const SizedBox(
-              height: TSizes.spaceBtwItems/2,
-            ),
-            Wrap(
-              spacing: 8,
-              children: [
-                TChoiceChips(text: '6',selected: true, onSelected: (value){},),
-                TChoiceChips(text: '7',selected: false, onSelected: (value){},),
-                TChoiceChips(text: '8',selected: true, onSelected: (value){},),
-                TChoiceChips(text: '9',selected: false, onSelected: (value){},),
-                TChoiceChips(text: '10',selected: true, onSelected: (value){},),
-              ],
-            )
-          ],
-        )
-      ],
+      ]),
     );
   }
 }

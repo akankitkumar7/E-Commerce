@@ -38,7 +38,8 @@ class ProductImageSlider extends StatelessWidget {
               return  GestureDetector(
                 onTap: () => controller.showEnlargeImage(image),
                 child: CachedNetworkImage(
-                  imageUrl: image,progressIndicatorBuilder: (_,__, downloadProgress) =>
+                  imageUrl: image,
+                  progressIndicatorBuilder: (_,__, downloadProgress) =>
                     CircularProgressIndicator(
                   value: downloadProgress.progress,color: TColors.primary,
                 ),),

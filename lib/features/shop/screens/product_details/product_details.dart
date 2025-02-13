@@ -6,6 +6,7 @@ import 'package:e_com/features/shop/screens/product_details/widgets/product_deta
 import 'package:e_com/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:e_com/features/shop/screens/product_details/widgets/rating_share.dart';
 import 'package:e_com/features/shop/screens/product_reviews/product_reviews.dart';
+import 'package:e_com/utils/constants/enums.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class ProductDetail extends StatelessWidget {
   const ProductDetail({super.key, required this.product});
 
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +40,11 @@ class ProductDetail extends StatelessWidget {
                   const RatingAndShare(),
 
                   ///price title, stock and brand
-                  const ProductMetaData(),
+                  ProductMetaData(product: product),
 
                   ///attributes sizes and colors
-                  const ProductAttributes(),
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
+                  if(product.productType == ProductType.variable.toString()) ProductAttributes(product: product,),
+                  if(product.productType == ProductType.variable.toString()) const SizedBox(height: TSizes.spaceBtwSections,),
 
                   ///checkout button
                   SizedBox(
@@ -63,17 +63,14 @@ class ProductDetail extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  const ReadMoreText(
-                    "Inspired by the original that debuted in 1985, the Air Jordan 1 Low"
-                    " offers a clean, classic look that's familiar yet always fresh. "
-                    "With an iconic design that pairs perfectly with any 'fit, these kicks ensure"
-                    " you'll always be on point.",
+                  ReadMoreText(
+                    product.description ?? " ",
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',
                     trimExpandedText: 'less',
-                    moreStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w800,),
-                    lessStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w800,),
+                    moreStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.w800,),
+                    lessStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.w800,),
                   ),
 
                   ///Reviews

@@ -3,6 +3,8 @@ import 'package:e_com/common/widgets/images/circular_image.dart';
 import 'package:e_com/common/widgets/product/product_price.dart';
 import 'package:e_com/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
+import 'package:e_com/features/shop/controllers/product/product_controller.dart';
+import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/enums.dart';
 import 'package:e_com/utils/constants/image_string.dart';
@@ -11,10 +13,14 @@ import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 
 class ProductMetaData extends StatelessWidget {
-  const ProductMetaData({super.key});
+  const ProductMetaData({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +35,7 @@ class ProductMetaData extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.sm, vertical: TSizes.xs),
               child: Text(
-                '35%',
+                '$salePercentage%',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -41,27 +47,17 @@ class ProductMetaData extends StatelessWidget {
             ),
 
             /// price
-            Text(
-              "\$250",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(decoration: TextDecoration.lineThrough),
-            ),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            const ProductPriceText(
-              price: '175',
-              isLarge: true,
-            ),
+            if(product.productType == ProductType.single.toString() && product.salePrice>0)
+              Text('\$${product.price}', style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
+            if(product.productType == ProductType.single.toString() && product.salePrice>0) const SizedBox(width: TSizes.spaceBtwItems,),
+            ProductPriceText(price: controller.getProductPrice(product), isLarge: true,),
           ],
         ),
         const SizedBox(width: TSizes.spaceBtwItems / 1.5),
 
         /// title
-        const ProductTitleText(
-          title: 'Air Jordan 1 Low',
+        ProductTitleText(
+          title: product.title,
           smallSize: true,
         ),
         const SizedBox(width: TSizes.spaceBtwItems / 1.5),
@@ -70,7 +66,7 @@ class ProductMetaData extends StatelessWidget {
         Row(children: [
           const ProductTitleText(title: 'Status'),
           const SizedBox(width: TSizes.spaceBtwItems / 1.5),
-          Text("In Stock", style: Theme.of(context).textTheme.titleMedium),
+          Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(width: TSizes.spaceBtwItems / 1.5),
         ]
         ),
@@ -80,12 +76,12 @@ class ProductMetaData extends StatelessWidget {
            mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircularImage(
-                image: TImages.brandImage3,
+                image: product.brand != null ? product.brand!.image: '',
               height: 32,
               width: 32,
               overlayColor: dark? TColors.white : TColors.black,
             ),
-            const BrandTitleTextWithVerifiedIcon(title: 'Nike',brandTextSize: TextSizes.medium,),
+            BrandTitleTextWithVerifiedIcon(title: product.brand != null ? product.brand!.name : '',brandTextSize: TextSizes.medium,),
           ],
         ),
       ],

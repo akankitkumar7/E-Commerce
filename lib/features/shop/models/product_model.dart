@@ -41,7 +41,7 @@ class ProductModel {
   });
 
   /// create empty function for clear code
-  static ProductModel empty() => ProductModel(id: '', title: '', stock: 0,  thumbnail: '', productType: '', price: 0);
+  static ProductModel empty() => ProductModel(id: '', title: '', stock: 0,  thumbnail: '', productType: '', price: 0,);
 
 
   /// json Format
