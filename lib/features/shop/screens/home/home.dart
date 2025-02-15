@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_com/common/widgets/loaders/vertical_product_shimmer.dart';
 import 'package:e_com/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:e_com/features/shop/controllers/product/product_controller.dart';
@@ -80,7 +81,10 @@ class HomeScreen extends StatelessWidget {
                   /// heading
                   SectionHeading(
                     title: "Popular Products",
-                    onPressed: () => Get.to(() => const AllProducts()),
+                    onPressed: () => Get.to(() => AllProducts(
+                          title: 'Popular Products',
+                          futureMethod: controller.fetchAllFeaturedProducts(),
+                        )),
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
@@ -101,7 +105,8 @@ class HomeScreen extends StatelessWidget {
                     }
                     return HomeGridLayout(
                         itemCount: controller.featuredProducts.length,
-                        itemBuilder: (_, index) => ProductCardVertical(product: controller.featuredProducts[index]));
+                        itemBuilder: (_, index) => ProductCardVertical(
+                            product: controller.featuredProducts[index]));
                   }),
                 ],
               ),

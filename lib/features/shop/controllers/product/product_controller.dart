@@ -38,6 +38,19 @@ class ProductController extends GetxController{
     }
   }
 
+  Future<List<ProductModel>> fetchAllFeaturedProducts() async{
+    try{
+
+      // fetch products
+      final products = await productRepository.getFeaturedProducts();
+      return products;
+
+    } catch(e){
+      TLoaders.errorSnackBar(title: 'Oh Snap!',message: e.toString());
+      return [];
+    }
+  }
+
 
   /// get the product price or price range for variation
   String getProductPrice(ProductModel product){
