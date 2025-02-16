@@ -39,7 +39,6 @@ class AllProducts extends StatelessWidget {
                    // return appropriate widget base on snapshot state
                    if(widget != null) return widget;
 
-
                    // product found
                    final products = snapshot.data!;
                   return SortableProducts(products: products);
