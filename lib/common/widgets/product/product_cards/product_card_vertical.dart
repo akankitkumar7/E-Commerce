@@ -51,6 +51,7 @@ class ProductCardVertical extends StatelessWidget {
                    Center(child: RoundedImage(imageUrl: product.thumbnail,applyImageRadius: true,isNetworkImage: true,)),
 
                   /// sale tag
+                  if(salePercentage != null)
                   Positioned(
                     top: 10,
                     child: RoundedContainer(

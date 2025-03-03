@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_com/data/services/firebase_storage_service.dart';
 import 'package:e_com/features/shop/models/product_model.dart';
@@ -7,7 +6,7 @@ import 'package:e_com/utils/exceptions/firebase_exceptions.dart';
 import 'package:e_com/utils/exceptions/platform_exceptions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'dart:io';
 class ProductRepository extends GetxController{
   static ProductRepository get instance => Get.find();
 
@@ -26,7 +25,7 @@ class ProductRepository extends GetxController{
     } on PlatformException catch(e){
       throw TPlatformException(e.code).message;
     } catch(e){
-      throw 'Something went wrong. Please try later';
+      throw 'Something went wrong. Please try again';
     }
   }
   /// get limited featured products
@@ -39,7 +38,7 @@ class ProductRepository extends GetxController{
     } on PlatformException catch(e){
       throw TPlatformException(e.code).message;
     } catch(e){
-      throw 'Something went wrong. Please try later';
+      throw 'Something went wrong. Please try again';
     }
   }
 /// get products based on brands
@@ -53,11 +52,27 @@ class ProductRepository extends GetxController{
     } on PlatformException catch(e){
       throw TPlatformException(e.code).message;
     } catch(e){
-      throw 'Something went wrong. Please try later';
+      throw 'Something went wrong. Please try again';
     }
   }
 
+  Future<List<ProductModel>> getProductsForBrand({required String brandId, int limit = -1}) async{
+    try{
+      final querySnapshot = limit == -1
+          ? await _db.collection('Products').where('Brand.Id',isEqualTo:brandId).get()
+          : await _db.collection('Products').where('Brand.Id',isEqualTo:brandId).limit(limit).get();
 
+      final products = querySnapshot.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      return products;
+
+    } on FirebaseException catch(e){
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch(e){
+      throw TPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
 
  /// upload dummy data to the cloud firebase

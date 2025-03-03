@@ -1,5 +1,6 @@
 import 'package:e_com/common/widgets/brands/brand_card.dart';
 import 'package:e_com/common/widgets/custom_shapes/containers/rounded_containers.dart';
+import 'package:e_com/features/shop/models/brand_model.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
@@ -20,8 +21,9 @@ class BrandShowcase extends StatelessWidget {
       child: Column(
         children: [
           /// brands with product count
-          const BrandCard(
+          BrandCard(
             showBorder: false,
+            brand: BrandModel.empty(),
           ),
           const SizedBox(height: TSizes.spaceBtwItems,),
 

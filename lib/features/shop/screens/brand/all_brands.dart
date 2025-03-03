@@ -1,7 +1,9 @@
 import 'package:e_com/common/widgets/appbar/appbar.dart';
 import 'package:e_com/common/widgets/brands/brand_card.dart';
-import 'package:e_com/common/widgets/layout/grid_layout.dart';
+import 'package:e_com/common/widgets/layout/grid_layout_store_screen.dart';
+import 'package:e_com/common/widgets/loaders/brand_shimmer.dart';
 import 'package:e_com/common/widgets/texts/section_heading.dart';
+import 'package:e_com/features/shop/controllers/brand_controller.dart';
 import 'package:e_com/features/shop/screens/brand/brand_products.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,10 @@ class AllBrandsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandController = BrandController.instance;
     return Scaffold(
       appBar: const TAppBar(
-        title: Text('Brand'),
+        title: Text('Brands'),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -32,14 +35,27 @@ class AllBrandsScreen extends StatelessWidget {
               ),
 
               ///brands
-              HomeGridLayout(
-                  mainAxisExtent: 80,
-                  itemCount: 10,
-                  itemBuilder: (context, index) => BrandCard(
-                    showBorder: true,
-                    onTap: () => Get.to(() => const BrandProducts(),
-                    ),
-                  ),
+              Obx(
+                    (){
+                    if(brandController.isLoading.value) return const BrandShimmer();
+                    if(brandController.allBrands.isEmpty){
+                      return Center(
+                        child: Text('No data found',style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)),
+                      );
+                    }
+                    return StoreGridLayout(
+                      itemCount: brandController.allBrands.length,
+                      mainAxisExtent: 80,
+                      itemBuilder: (_, index) {
+                        final brand = brandController.allBrands[index];
+                        return BrandCard(
+                            brand:brand,
+                            showBorder: true,
+                            onTap: () =>Get.to(()=> BrandProducts(brand: brand,)),
+                        );
+                      },
+                    );
+                  }
               ),
             ],
           ),
