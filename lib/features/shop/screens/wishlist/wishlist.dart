@@ -5,7 +5,6 @@ import 'package:e_com/common/widgets/loaders/animation_loader.dart';
 import 'package:e_com/common/widgets/loaders/vertical_product_shimmer.dart';
 import 'package:e_com/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:e_com/features/shop/controllers/product/favourite_controller.dart';
-import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/features/shop/screens/home/home.dart';
 import 'package:e_com/navigation_menu.dart';
 import 'package:e_com/utils/constants/image_string.dart';
