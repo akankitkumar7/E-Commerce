@@ -1,7 +1,7 @@
 import 'package:e_com/common/styles/shadows.dart';
 import 'package:e_com/common/widgets/custom_shapes/containers/rounded_containers.dart';
-import 'package:e_com/common/widgets/icons/circular_icon.dart';
 import 'package:e_com/common/widgets/images/rounder_home_banner.dart';
+import 'package:e_com/common/widgets/product/favourite_icon/favourite_icon.dart';
 import 'package:e_com/common/widgets/product/product_price.dart';
 import 'package:e_com/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
@@ -64,13 +64,10 @@ class ProductCardVertical extends StatelessWidget {
                   ),
 
                   /// favorite Icon Button
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: CircularIcon(
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: FavouriteIcon(productId: product.id,),
                   ),
                 ],
               ),

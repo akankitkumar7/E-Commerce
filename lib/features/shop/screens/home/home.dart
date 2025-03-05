@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_com/common/widgets/loaders/vertical_product_shimmer.dart';
 import 'package:e_com/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:e_com/features/shop/controllers/product/product_controller.dart';
@@ -36,12 +35,8 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   ///search bar
-                  SearchContainer(
-                    text: TTexts.searchText,
-                  ),
-                  SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
+                  SearchContainer(text: TTexts.searchText),
+                  SizedBox(height: TSizes.spaceBtwSections),
 
                   /// headings  (popular categories)
                   Padding(
@@ -62,9 +57,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  )
+                  SizedBox(height: TSizes.spaceBtwSections)
                 ],
               ),
             ),
@@ -86,9 +79,7 @@ class HomeScreen extends StatelessWidget {
                           futureMethod: controller.fetchAllFeaturedProducts(),
                         )),
                   ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
 
                   /// popular products
                   Obx(() {

@@ -1,6 +1,6 @@
 import 'package:e_com/common/widgets/custom_shapes/containers/rounded_containers.dart';
-import 'package:e_com/common/widgets/icons/circular_icon.dart';
 import 'package:e_com/common/widgets/images/rounder_home_banner.dart';
+import 'package:e_com/common/widgets/product/favourite_icon/favourite_icon.dart';
 import 'package:e_com/common/widgets/product/product_price.dart';
 import 'package:e_com/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
-  const ProductCardHorizontal({super.key});
+  const ProductCardHorizontal({super.key,});
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +64,7 @@ class ProductCardHorizontal extends StatelessWidget {
                 const Positioned(
                   top: 5,
                   right: 0,
-                  child: CircularIcon(
-                    icon: Iconsax.heart5,
-                    color: Colors.red,
-                  ),
+                  child: FavouriteIcon(productId: '')
                 ),
               ],
             ),
