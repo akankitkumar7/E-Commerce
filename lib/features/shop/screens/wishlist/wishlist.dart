@@ -23,7 +23,7 @@ class FavouriteScreen extends StatelessWidget {
       appBar: TAppBar(
         title: Text("WishList",style: Theme.of(context).textTheme.headlineMedium,),
         actions: [
-          CircularIcon(icon: Iconsax.add,onPressed: ()=>Get.to(()=> const HomeScreen()),)
+          CircularIcon(icon: Iconsax.add,onPressed: ()=>Get.to(()=> const HomeScreen())),
           ],
       ),
       body: SingleChildScrollView(
@@ -49,7 +49,7 @@ class FavouriteScreen extends StatelessWidget {
                  itemCount: products.length,
                  itemBuilder: (_,index) => ProductCardVertical(product: products[index]));
                 },
-                    ),
+            ),
           ),
       ),
       ));
