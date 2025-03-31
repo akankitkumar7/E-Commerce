@@ -7,7 +7,6 @@ import 'package:e_com/features/shop/controllers/product/product_controller.dart'
 import 'package:e_com/features/shop/models/product_model.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/enums.dart';
-import 'package:e_com/utils/constants/image_string.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class ProductMetaData extends StatelessWidget {
             /// sale tag
             RoundedContainer(
               radius: TSizes.sm,
-              backgroundColor: TColors.secondary.withOpacity(0.8),
+              backgroundColor: TColors.secondary,
               padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.sm, vertical: TSizes.xs),
               child: Text(

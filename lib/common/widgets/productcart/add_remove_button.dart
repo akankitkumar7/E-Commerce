@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 class ProductQuantityAdderRemover extends StatelessWidget {
   const ProductQuantityAdderRemover({
-    super.key,
+    super.key, required this.quantity, this.add, this.remove,
   });
 
+  final int quantity;
+  final VoidCallback? add, remove;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -24,27 +26,27 @@ class ProductQuantityAdderRemover extends StatelessWidget {
               color: THelperFunctions.isDarkMode(context)
                   ? TColors.white
                   : TColors.black,
-              backgroundColor: THelperFunctions.isDarkMode(context)
-                  ? TColors.darkerGrey
-                  : TColors.light,
+              backgroundColor: THelperFunctions.isDarkMode(context) ? TColors.darkerGrey : TColors.light,
+              onPressed: remove,
             ),
             const SizedBox(
               width: TSizes.spaceBtwItems,
             ),
             Text(
-              '2',
+              quantity.toString(),
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(
               width: TSizes.spaceBtwItems,
             ),
-            const CircularIcon(
+            CircularIcon(
               icon: Iconsax.add,
               width: 32,
               height: 32,
               size: TSizes.md,
               color: TColors.white,
               backgroundColor: TColors.primary,
+              onPressed: add,
             ),
           ],
         ),

@@ -7,9 +7,7 @@ import 'package:e_com/utils/constants/text_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({
-    super.key,
-  });
+  const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +25,8 @@ class HomeAppBar extends StatelessWidget {
               }
             }),
           ]),
-      actions: [
-        CartCounterIcon(onPressed: () {}, iconColor: TColors.white,counterBgColor: TColors.black,counterTextColor: TColors.white,),
+      actions: const [
+        CartCounterIcon(iconColor: TColors.white,counterBgColor: TColors.black,counterTextColor: TColors.white,),
       ],
     );
   }

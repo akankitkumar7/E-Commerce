@@ -51,7 +51,6 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           height: TSizes.spaceBtwItems,
                         ),
-
                         /// categories (circular items)
                         HomeCategories()
                       ],

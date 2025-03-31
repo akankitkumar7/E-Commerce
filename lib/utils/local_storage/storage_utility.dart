@@ -22,14 +22,15 @@
 
 
    // generic method to save data
-
   Future<void> saveData<T>(String key, T value) async{
     await _storage.write(key, value);
   }
 
-
+  // generic method to remove data
+    Future<void> writeData<T>(String key, T value)async{
+      await _storage.write(key, value);
+    }
   // generic method to read data
-
   T? readData<T>(String key){
     return _storage.read<T>(key);
   }
@@ -37,7 +38,7 @@
 
   // generic method to remove data
 
-  Future<void> removeData (String key)async{
+  Future<void> removeData(String key)async{
     await _storage.remove(key);
   }
 

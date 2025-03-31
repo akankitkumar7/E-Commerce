@@ -8,7 +8,7 @@ class NetworkManager extends GetxController{
   static NetworkManager get instance => Get.find();
   
   final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
   final Rx<ConnectivityResult> _connectionStatus = ConnectivityResult.none.obs;
   
   
@@ -17,9 +17,14 @@ class NetworkManager extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    // _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      if (results.isNotEmpty) {
+        _updateConnectionStatus(results.first); // Pick the first connectivity result
+      }
+    });
   }
-  
+
+
   /// update the connection status based on changes in connectivity and show a relevant popup for no internet connection
   Future<void> _updateConnectionStatus(ConnectivityResult result) async{
     _connectionStatus.value = result;
@@ -38,7 +43,7 @@ class NetworkManager extends GetxController{
       }else{
         return true;
       }
-    } on PlatformException catch(e){
+    } on PlatformException {
       return false;
     }
  }

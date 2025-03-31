@@ -6,7 +6,6 @@ import 'package:e_com/common/widgets/loaders/vertical_product_shimmer.dart';
 import 'package:e_com/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:e_com/features/shop/controllers/product/favourite_controller.dart';
 import 'package:e_com/features/shop/screens/home/home.dart';
-import 'package:e_com/navigation_menu.dart';
 import 'package:e_com/utils/constants/image_string.dart';
 import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/cloud_helper_functions.dart';
@@ -21,9 +20,10 @@ class FavouriteScreen extends StatelessWidget {
     final controller = Get.put(FavouriteController());
     return Scaffold(
       appBar: TAppBar(
+        showBackArrow: true,
         title: Text("WishList",style: Theme.of(context).textTheme.headlineMedium,),
         actions: [
-          CircularIcon(icon: Iconsax.add,onPressed: ()=>Get.to(()=> const HomeScreen())),
+          CircularIcon(icon: Iconsax.add,onPressed: () => Get.to(()=> const HomeScreen())),
           ],
       ),
       body: SingleChildScrollView(
@@ -38,7 +38,7 @@ class FavouriteScreen extends StatelessWidget {
                       animation: TImages.animation,
                       showAction: true,
                       actionText: 'Let\'s add something',
-                      onActionPressed: () => Get.off(() => const NavigationMenu()),
+                      onActionPressed: () => Get.off(() => const HomeScreen()),
                   );
                 const loader = TVerticalProductShimmer(itemCount: 6);
                 final widget = CloudHelperFunctions.checkMultiRecordStatus(snapShot: snapshot,loader: loader,nothingFound: emptyWidget);

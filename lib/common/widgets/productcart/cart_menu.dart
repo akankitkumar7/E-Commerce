@@ -1,3 +1,4 @@
+import 'package:e_com/features/shop/controllers/product/cart_controller.dart';
 import 'package:e_com/features/shop/screens/cart/cart.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
@@ -7,17 +8,17 @@ import 'package:iconsax/iconsax.dart';
 class CartCounterIcon extends StatelessWidget {
   const CartCounterIcon({
     super.key,
-    required this.onPressed,
     this.iconColor,
     this.counterBgColor,
     this.counterTextColor,
   });
 
-  final VoidCallback onPressed;
+
   final Color? iconColor, counterBgColor,counterTextColor;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CartController());
     final dark = THelperFunctions.isDarkMode(context);
     return Stack(
       children: [
@@ -37,12 +38,14 @@ class CartCounterIcon extends StatelessWidget {
                 color: counterBgColor ?? (dark ? TColors.white : TColors.black),
                 borderRadius: BorderRadius.circular(100)),
             child: Center(
-              child: Text(
-                "0",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: TColors.white),
+              child: Obx(
+                () => Text(
+                  controller.noOfCartItems.value.toString(),
+                  style: Theme.of(context).textTheme.labelLarge!.apply(
+                      color: counterTextColor ?? (dark ? TColors.black :TColors.white),
+                      fontSizeFactor: 0.8
+                  ),
+                ),
               ),
             ),
           ),

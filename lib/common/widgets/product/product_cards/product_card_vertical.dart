@@ -7,6 +7,7 @@ import 'package:e_com/common/widgets/texts/brand_title_with_verified_icon.dart';
 import 'package:e_com/common/widgets/texts/product_title_text.dart';
 import 'package:e_com/features/shop/controllers/product/product_controller.dart';
 import 'package:e_com/features/shop/models/product_model.dart';
+import 'package:e_com/features/shop/screens/home/widgets/add_to_cart_button.dart';
 import 'package:e_com/features/shop/screens/product_details/product_details.dart';
 import 'package:e_com/utils/constants/colors.dart';
 import 'package:e_com/utils/constants/enums.dart';
@@ -14,7 +15,6 @@ import 'package:e_com/utils/constants/sizes.dart';
 import 'package:e_com/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class ProductCardVertical extends StatelessWidget {
   const ProductCardVertical({super.key, required this.product});
@@ -112,20 +112,7 @@ class ProductCardVertical extends StatelessWidget {
                 ),
 
                 /// add to cart button
-                Container(
-                    decoration: const BoxDecoration(
-                        color: TColors.dark,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(TSizes.cardRadiusMd),
-                            bottomRight:
-                                Radius.circular(TSizes.productImageRadius))),
-                    child: const SizedBox(
-                        width: TSizes.iconLg * 1.2,
-                        height: TSizes.iconLg * 1.2,
-                        child: Icon(
-                          Iconsax.add,
-                          color: TColors.white,
-                        ))),
+                ProductCardAddToCartButton(product:product),
               ],
             ),
           ],
@@ -134,3 +121,4 @@ class ProductCardVertical extends StatelessWidget {
     );
   }
 }
+
